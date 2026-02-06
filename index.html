@@ -4,31 +4,32 @@ import {
   AlertCircle, CheckCircle2, ArrowRight, Sparkles, Target, 
   FileText, MousePointer2, Info, Download, Factory,
   ShieldCheck, Lightbulb, FlaskConical, Wrench, Shirt, 
-  Pickaxe, HardHat, Droplets, Utensils, Printer, Ban, Loader2
+  Pickaxe, HardHat, Droplets, Utensils, Printer, Ban, Loader2,
+  Eye, LayoutDashboard
 } from 'lucide-react';
 
 /**
- * RECOMENDAÇÃO INTELIGENTE - STI (v3.6)
- * Foco: Compatibilidade Total GitHub, Exportação Assíncrona e Fluxo por Localização.
+ * RECOMENDAÇÃO INTELIGENTE - STI (v4.2 - Estabilidade e Visualização)
+ * Foco: Visualização prévia do relatório, correção de tags e exportação robusta.
  */
 
-// --- DATASET ESTRUTURADO ---
+// --- DATASETS ---
 
 const SEGMENTOS = [
-  { id: 'sucroenergetico', label: 'Sucroenergético', icon: <Droplets className="w-6 h-6" />, description: 'Goiás é o 2º maior produtor de biocombustíveis do país.' },
+  { id: 'sucroenergetico', label: 'Sucroenergético', icon: <Droplets className="w-6 h-6" />, description: 'Goiás é o 2º maior produtor nacional de bioenergia.' },
   { id: 'alimentos', label: 'Alimentos e Bebidas', icon: <Utensils className="w-6 h-6" />, description: 'Liderança em processamento de grãos e proteína animal.' },
-  { id: 'farma', label: 'Fármacos e Química', icon: <FlaskConical className="w-6 h-6" />, description: 'DAIA: O maior polo farmacêutico de genéricos da América Latina.' },
-  { id: 'metal', label: 'Metalmecânico / Auto', icon: <Wrench className="w-6 h-6" />, description: 'Clusters de mobilidade e manutenção pesada.' },
-  { id: 'moda', label: 'Moda e Confecção', icon: <Shirt className="w-6 h-6" />, description: 'Polo têxtil e design da Região Metropolitana.' },
-  { id: 'minera', label: 'Mineração / Terras Raras', icon: <Pickaxe className="w-6 h-6" />, description: 'Vetor estratégico para a transição energética global.' },
-  { id: 'construcao', label: 'Construção Civil', icon: <HardHat className="w-6 h-6" />, description: 'Sistemas construtivos modernos e expansão urbana.' }
+  { id: 'farma', label: 'Fármacos e Química', icon: <FlaskConical className="w-6 h-6" />, description: 'DAIA: Maior polo farmacêutico de genéricos da América Latina.' },
+  { id: 'metal', label: 'Metalmecânico / Auto', icon: <Wrench className="w-6 h-6" />, description: 'Clusters de mobilidade e manutenção industrial pesada.' },
+  { id: 'moda', label: 'Moda e Confecção', icon: <Shirt className="w-6 h-6" />, description: 'Polo têxtil e design da Região Metropolitana de Goiânia.' },
+  { id: 'minera', label: 'Mineração / Terras Raras', icon: <Pickaxe className="w-6 h-6" />, description: 'Extração estratégica para a transição energética global.' },
+  { id: 'construcao', label: 'Construção Civil', icon: <HardHat className="w-6 h-6" />, description: 'Inovação em sistemas construtivos e expansão urbana.' }
 ];
 
 const CIDADES = [
   { id: 'anapolis', label: 'Anápolis', region: 'Centro', vocacao: 'Hub Farmacêutico e Logístico (DAIA)' },
   { id: 'rioverde', label: 'Rio Verde', region: 'Sudoeste', vocacao: 'Agroindústria 4.0 (CEAGRE)' },
-  { id: 'catalao', label: 'Catalão', region: 'Sudeste', vocacao: 'Mineração Verde e Eletromobilidade' },
-  { id: 'itumbiara', label: 'Itumbiara', region: 'Sul', vocacao: 'Bioenergia e Fronteira Industrial' },
+  { id: 'catalao', label: 'Catalão', region: 'Sudeste', vocacao: 'Mineração Verde e Mobilidade Elétrica' },
+  { id: 'itumbiara', label: 'Itumbiara', region: 'Sul', vocacao: 'Bioenergia e Manutenção Industrial' },
   { id: 'goiania', label: 'Goiânia', region: 'Metropolitana', vocacao: 'Moda 4.0 e Serviços Tecnológicos' }
 ];
 
@@ -53,7 +54,7 @@ const PROBLEMAS_POR_CATEGORIA = {
   digital: [
     { id: 'automacao', label: 'Maquinário manual sem integração digital' },
     { id: 'inovacao', label: 'Dificuldade em acessar editais de fomento' },
-    { id: 'capacitacao', label: 'Mão de obra com lacunas em novas tecnologias' }
+    { id: 'capacitacao', label: 'Mão de obra com lacunas tecnológicas' }
   ],
   mercado: [
     { id: 'produto', label: 'Necessidade de novos subprodutos/embalagens' },
@@ -64,24 +65,23 @@ const PROBLEMAS_POR_CATEGORIA = {
 
 const FICHEIRO_RECOMENDACOES = {
   sebraetec: [
-    { id: 1, title: 'Design De Produto Tridimensional', area: 'DESIGN', match: ['produto', 'sucroenergetico', 'transversal'], note: 'Essencial para prototipagem de peças e visualização técnica de novos produtos.' },
-    { id: 2, title: 'Adequação À Norma ISO 9001', area: 'QUALIDADE', match: ['qualidade', 'farma', 'sucroenergetico'], note: 'Garante a padronização global necessária para exportação e contratos corporativos.' },
-    { id: 3, title: 'Branding e Identidade Visual', area: 'DESIGN', match: ['identidade', 'mercado', 'transversal'], note: 'Posiciona a indústria como player moderno no ciclo de neoindustrialização.' },
-    { id: 4, title: 'Eficiência Energética Ágil', area: 'SUSTENTABILIDADE', match: ['energia', 'alimentos'], note: 'Intervenção rápida para redução de custos em utilities e processos leves.' }
+    { id: 1, title: 'Design De Produto Tridimensional', area: 'DESIGN', match: ['produto', 'sucroenergetico', 'transversal'], note: 'Essencial para prototipagem de peças e novos dispositivos.' },
+    { id: 2, title: 'Adequação À Norma ISO 9001', area: 'QUALIDADE', match: ['qualidade', 'farma', 'sucroenergetico'], note: 'Garante a padronização necessária para exportação.' },
+    { id: 3, title: 'Branding e Identidade Visual', area: 'DESIGN', match: ['identidade', 'mercado', 'transversal'], note: 'Posiciona a indústria como player moderno no mercado.' },
+    { id: 4, title: 'Gestão de Efluentes Líquidos', area: 'SUSTENTABILIDADE', match: ['ambiental', 'sucroenergetico'], note: 'Solução técnica para manejo de resíduos industriais.' }
   ],
   senai_sti: [
-    { id: 1, title: 'Consultoria Lean Manufacturing', type: 'STI', match: ['desperdicio', 'produtividade', 'sucroenergetico'], note: 'Otimização estrutural de processos contínuos e manutenção de entressafra.' },
-    { id: 2, title: 'Retrofitting e Automação 4.0', type: 'STI', match: ['automacao', 'digital', 'sucroenergetico'], note: 'Inserção de IA e sensores em plantas para controle de extração em tempo real.' },
-    { id: 3, title: 'Diagnóstico de Eficiência Energética', type: 'STI', match: ['energia', 'sucroenergetico', 'minera'], note: 'Maximização da cogeração de energia e redução de perdas térmicas.' },
-    { id: 4, title: 'Submissão de Projetos (GTI)', type: 'GTI', match: ['inovacao', 'digital', 'farma'], note: 'Apoio técnico na captação de recursos via EMBRAPII, BNDES e FAPEG.' },
-    { id: 100, title: 'Diagnóstico de Maturidade Tecnológica', type: 'GTI', match: ['transversal'], note: 'Avaliação da infraestrutura para plano de modernização industrial 2026-2035.' },
-    { id: 101, title: 'Laboratório de Metrologia e Ensaios', type: 'STI', match: ['transversal'], note: 'Certificação de qualidade de materiais e calibração de precisão industrial.' }
+    { id: 1, title: 'Consultoria Lean Manufacturing', type: 'STI', match: ['desperdicio', 'produtividade', 'sucroenergetico'], note: 'Otimização estrutural de processos e redução de gargalos.' },
+    { id: 2, title: 'Retrofitting e Automação 4.0', type: 'STI', match: ['automacao', 'digital', 'sucroenergetico'], note: 'Sensores em plantas para controle em tempo real.' },
+    { id: 3, title: 'Diagnóstico de Eficiência Energética', type: 'STI', match: ['energia', 'sucroenergetico'], note: 'Maximização da cogeração de energia.' },
+    { id: 100, title: 'Diagnóstico de Maturidade Digital', type: 'GTI', match: ['transversal'], note: 'Avaliação completa da infraestrutura para modernização.' },
+    { id: 101, title: 'Excelência Operacional', type: 'STI', match: ['transversal'], note: 'Mapeamento de ganhos rápidos de produtividade.' }
   ]
 };
 
 const LOGO_URL = "https://i.postimg.cc/3wW9LVRV/senai_gti.png";
 
-// --- COMPONENTES ---
+// --- COMPONENTES AUXILIARES ---
 
 const StepHeader = ({ title, description }) => (
   <div className="mb-10 animate-in fade-in slide-in-from-top-4 duration-700">
@@ -96,6 +96,7 @@ const StepHeader = ({ title, description }) => (
 export default function App() {
   const [step, setStep] = useState(0);
   const [isExporting, setIsExporting] = useState(false);
+  const [showReportPreview, setShowReportPreview] = useState(false);
   const [data, setData] = useState({
     segmento: null,
     porte: null,
@@ -105,16 +106,16 @@ export default function App() {
     intensidade: 50
   });
 
-  // --- Lógica de Exportação para PDF (Essência da Aplicação) ---
+  // Função assíncrona de exportação PDF robusta
   async function exportPDF() {
     setIsExporting(true);
+    // Força a visualização do relatório para garantir que o DOM de impressão esteja montado
+    setShowReportPreview(true);
     try {
-        // Delay assíncrono essencial para garantir que o navegador 
-        // processe as mudanças de estado do React antes da impressão
-        await new Promise(resolve => setTimeout(resolve, 850));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         window.print();
     } catch (error) {
-        console.error("Falha na geração do PDF:", error);
+        console.error("Falha na exportação:", error);
     } finally {
         setIsExporting(false);
     }
@@ -127,42 +128,33 @@ export default function App() {
 
   const recommendations = useMemo(() => {
     if (step < 5) return { sebrae: [], senai: [] };
-    
     const filterFn = (item) => 
         (item.match && item.match.includes(data.problema)) || 
         (item.match && item.match.includes(data.segmento));
     
-    // Garantia de STI (Fallback Transversal)
     let senaiRecs = FICHEIRO_RECOMENDACOES.senai_sti.filter(filterFn);
-    if (senaiRecs.length === 0) {
-      senaiRecs = FICHEIRO_RECOMENDACOES.senai_sti.filter(item => item.match.includes('transversal'));
-    }
+    if (senaiRecs.length === 0) senaiRecs = FICHEIRO_RECOMENDACOES.senai_sti.filter(i => i.match.includes('transversal'));
 
-    // Garantia de Sebrae (se elegível)
     let sebraeRecs = FICHEIRO_RECOMENDACOES.sebraetec.filter(filterFn);
-    if (sebraeRecs.length === 0) {
-      sebraeRecs = FICHEIRO_RECOMENDACOES.sebraetec.filter(item => item.match.includes('transversal'));
-    }
+    if (sebraeRecs.length === 0) sebraeRecs = FICHEIRO_RECOMENDACOES.sebraetec.filter(i => i.match.includes('transversal'));
     
-    return {
-      sebrae: sebraeRecs,
-      senai: senaiRecs
-    };
+    return { sebrae: sebraeRecs, senai: senaiRecs };
   }, [step, data.problema, data.segmento]);
 
   const isSebraeEligible = data.porte === 'micro';
 
-  // Helpers de Rótulos para evitar erros de renderização de objeto
-  const currentSegment = SEGMENTOS.find(s => s.id === data.segmento);
-  const currentCity = CIDADES.find(c => c.id === data.cidade);
+  // Labels amigáveis
+  const currentSegmentLabel = SEGMENTOS.find(s => s.id === data.segmento)?.label || 'Indústria Geral';
+  const currentCityLabel = CIDADES.find(c => c.id === data.cidade)?.label || 'Goiás';
+  const currentCityVocacao = CIDADES.find(c => c.id === data.cidade)?.vocacao || 'Polo Industrial';
   const currentProblemLabel = data.categoriaDor ? 
     PROBLEMAS_POR_CATEGORIA[data.categoriaDor]?.find(p => p.id === data.problema)?.label : 'Geral';
   const currentPorteLabel = data.porte === 'micro' ? 'Micro / Pequena' : data.porte === 'media' ? 'Média Empresa' : 'Grande Empresa';
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-slate-900 selection:text-white pb-20">
+    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-slate-900 selection:text-white pb-20 overflow-x-hidden">
       
-      {/* Header Interativo e Responsivo */}
+      {/* HEADER INTERATIVO */}
       <header className="max-w-7xl mx-auto px-6 pt-12 flex justify-between items-center mb-16 no-print">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 bg-black rounded-2xl flex items-center justify-center shadow-2xl">
@@ -176,16 +168,11 @@ export default function App() {
         
         <div className="flex items-center gap-8">
           {step > 0 && step < 5 && (
-            <button onClick={() => setStep(step - 1)} className="text-xs font-black text-slate-400 hover:text-black transition-colors flex items-center gap-2 tracking-widest">
-              <ChevronLeft className="w-4 h-4" /> VOLTAR
+            <button onClick={() => setStep(step - 1)} className="text-xs font-black text-slate-400 hover:text-black transition-colors flex items-center gap-2 tracking-widest uppercase">
+              <ChevronLeft className="w-4 h-4" /> Voltar
             </button>
           )}
-          <img 
-            src={LOGO_URL} 
-            alt="Logo STI" 
-            className="h-10 w-auto object-contain"
-            onError={(e) => { e.target.style.display = 'none'; }}
-          />
+          <img src={LOGO_URL} alt="Logo" className="h-10 w-auto object-contain" />
         </div>
       </header>
 
@@ -198,20 +185,13 @@ export default function App() {
             </div>
         )}
 
-        {/* PASSO 0: LOCALIZAÇÃO (Início da Jornada) */}
+        {/* FLUXO WIZARD */}
         {step === 0 && (
           <div className="animate-in fade-in slide-in-from-bottom-6 duration-700">
-            <StepHeader 
-              title="Localização da Indústria" 
-              description="Identifique o polo onde sua unidade está instalada. Cada região de Goiás possui infraestrutura especializada para captura dos R$ 39 bilhões em investimentos previstos." 
-            />
+            <StepHeader title="Localização da Unidade" description="O ponto de partida define os incentivos regionais. Goiás possui distritos agroindustriais e polos de alta tecnologia como o DAIA e o DIANOT." />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {CIDADES.map(c => (
-                <button
-                  key={c.id}
-                  onClick={() => updateSelection('cidade', c.id)}
-                  className="p-8 border border-slate-100 rounded-[32px] text-left hover:border-black hover:bg-slate-50 transition-all group"
-                >
+                <button key={c.id} onClick={() => updateSelection('cidade', c.id)} className="p-8 border border-slate-100 rounded-[32px] text-left hover:border-black hover:bg-slate-50 transition-all group">
                   <MapPin className="w-5 h-5 mb-4 text-slate-300 group-hover:text-black transition-colors" />
                   <h3 className="text-xl font-bold mb-1">{c.label}</h3>
                   <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest leading-tight">{c.vocacao}</p>
@@ -221,20 +201,12 @@ export default function App() {
           </div>
         )}
 
-        {/* PASSO 1: SEGMENTO */}
         {step === 1 && (
           <div className="animate-in fade-in slide-in-from-right-6 duration-700">
-            <StepHeader 
-              title="Segmento Industrial" 
-              description="Aponte o setor produtivo. Goiás avança para uma economia complexa com foco em cadeias de alto valor agregado e sustentabilidade circular." 
-            />
+            <StepHeader title="Segmento Industrial" description="Selecione o pilar produtivo. O estado de Goiás é líder no setor sucroenergético e farmacêutico, operando cadeias de alta complexidade." />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {SEGMENTOS.map(s => (
-                <button
-                  key={s.id}
-                  onClick={() => updateSelection('segmento', s.id)}
-                  className="p-8 border border-slate-100 rounded-[32px] text-left hover:border-black hover:bg-slate-50 transition-all flex items-center gap-6 group"
-                >
+                <button key={s.id} onClick={() => updateSelection('segmento', s.id)} className="p-8 border border-slate-100 rounded-[32px] text-left hover:border-black hover:bg-slate-50 transition-all flex items-center gap-6 group">
                   <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-400 group-hover:bg-black group-hover:text-white transition-all">
                     {s.icon}
                   </div>
@@ -249,24 +221,16 @@ export default function App() {
           </div>
         )}
 
-        {/* PASSO 2: PORTE */}
         {step === 2 && (
           <div className="animate-in fade-in slide-in-from-right-6 duration-700">
-            <StepHeader 
-              title="Porte da Unidade" 
-              description="O porte define o nível de subsídio. Nota: Fichas Sebraetec são exclusivas para Micro e Pequenas empresas (MPE) para diferenciação rápida de mercado." 
-            />
+            <StepHeader title="Porte da Indústria" description="O porte determina o acesso a subsídios governamentais. Nota: As Fichas Sebraetec são exclusivas para Micro e Pequenas Empresas (MPE)." />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 { id: 'micro', label: 'Micro / Pequena', desc: 'Até 49 funcionários' },
                 { id: 'media', label: 'Média Empresa', desc: '50 a 249 funcionários' },
                 { id: 'grande', label: 'Grande Empresa', desc: 'Acima de 250 funcionários' }
               ].map(p => (
-                <button
-                  key={p.id}
-                  onClick={() => updateSelection('porte', p.id)}
-                  className="p-10 border border-slate-100 rounded-[40px] text-center hover:border-black hover:bg-slate-50 transition-all group"
-                >
+                <button key={p.id} onClick={() => updateSelection('porte', p.id)} className="p-10 border border-slate-100 rounded-[40px] text-center hover:border-black hover:bg-slate-50 transition-all group">
                   <Building2 className="w-10 h-10 mx-auto mb-4 text-slate-300 group-hover:text-black transition-colors" />
                   <h3 className="text-xl font-bold mb-2">{p.label}</h3>
                   <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{p.desc}</p>
@@ -276,20 +240,12 @@ export default function App() {
           </div>
         )}
 
-        {/* PASSO 3: CATEGORIA DOR */}
         {step === 3 && (
           <div className="animate-in fade-in slide-in-from-right-6 duration-700">
-            <StepHeader 
-              title="Gargalo Produtivo" 
-              description="Escolha a categoria do desafio que mais impacta sua competitividade atual para filtrarmos o plano de intervenção técnica." 
-            />
+            <StepHeader title="Gargalo Produtivo" description="Identifique a categoria do desafio que mais impacta sua produtividade para que possamos sugerir o plano técnico mais assertivo." />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {CATEGORIAS_DOR.map(cat => (
-                <button
-                  key={cat.id}
-                  onClick={() => updateSelection('categoriaDor', cat.id)}
-                  className="p-8 border border-slate-100 rounded-[32px] text-left hover:border-black flex items-center gap-6 group transition-all"
-                >
+                <button key={cat.id} onClick={() => updateSelection('categoriaDor', cat.id)} className="p-8 border border-slate-100 rounded-[32px] text-left hover:border-black flex items-center gap-6 group transition-all">
                   <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-400 group-hover:bg-black group-hover:text-white transition-all">
                     {cat.icon}
                   </div>
@@ -303,22 +259,14 @@ export default function App() {
           </div>
         )}
 
-        {/* PASSO 4: DETALHAMENTO */}
         {step === 4 && (
           <div className="animate-in fade-in slide-in-from-right-6 duration-700 max-w-2xl mx-auto">
-            <StepHeader 
-              title="Detalhamento Técnico" 
-              description="Informe o ponto focal. Impactos críticos superiores a 70% sugerem a necessidade imediata de serviços STI de alta complexidade." 
-            />
+            <StepHeader title="Detalhamento Técnico" description="Selecione o ponto focal e a intensidade. Impactos superiores a 70% sugerem a necessidade de intervenções estruturais via STI SENAI." />
             <div className="space-y-10 bg-slate-50 p-12 rounded-[56px] shadow-sm">
-              <div className="space-y-4">
+              <div className="space-y-4 font-bold">
                 <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 ml-1">Desafio Detectado</label>
                 <div className="relative">
-                    <select 
-                        className="w-full p-6 rounded-2xl border-none text-lg font-bold bg-white shadow-sm focus:ring-2 focus:ring-black transition-all appearance-none cursor-pointer"
-                        value={data.problema}
-                        onChange={(e) => setData({...data, problema: e.target.value})}
-                    >
+                    <select className="w-full p-6 rounded-2xl border-none text-lg font-bold bg-white shadow-sm focus:ring-2 focus:ring-black appearance-none cursor-pointer" value={data.problema} onChange={(e) => setData({...data, problema: e.target.value})}>
                         <option value="">Selecione o problema focal...</option>
                         {data.categoriaDor && PROBLEMAS_POR_CATEGORIA[data.categoriaDor]?.map(p => (
                             <option key={p.id} value={p.id}>{p.label}</option>
@@ -327,183 +275,155 @@ export default function App() {
                     <ChevronRight className="w-5 h-5 absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none rotate-90 text-slate-300" />
                 </div>
               </div>
-
               <div className="space-y-5">
-                <div className="flex justify-between items-end">
-                  <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 ml-1">Intensidade do Impacto</label>
+                <div className="flex justify-between items-end font-bold">
+                  <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 ml-1">Gravidade do Gargalo</label>
                   <span className="text-6xl font-black tracking-tighter">{data.intensidade}%</span>
                 </div>
-                <input 
-                  type="range" min="0" max="100" 
-                  value={data.intensidade}
-                  onChange={(e) => setData({...data, intensidade: parseInt(e.target.value, 10)})}
-                  className="w-full h-2 bg-white rounded-lg appearance-none cursor-pointer accent-black shadow-inner"
-                />
+                <input type="range" min="0" max="100" value={data.intensidade} onChange={(e) => setData({...data, intensidade: parseInt(e.target.value, 10)})} className="w-full h-2 bg-white rounded-lg appearance-none cursor-pointer accent-black shadow-inner" />
               </div>
-
-              <button
-                disabled={!data.problema}
-                onClick={() => setStep(5)}
-                className="w-full py-7 bg-black text-white rounded-[28px] font-black text-xl hover:bg-slate-800 transition-all disabled:opacity-30 flex items-center justify-center gap-4 shadow-xl"
-              >
-                GERAR PLANO FINAL <ArrowRight className="w-6 h-6" />
-              </button>
+              <button disabled={!data.problema} onClick={() => setStep(5)} className="w-full py-7 bg-black text-white rounded-[28px] font-black text-xl hover:bg-slate-800 transition-all disabled:opacity-30 flex items-center justify-center gap-4 shadow-xl uppercase tracking-widest">Gerar Diagnóstico <ArrowRight className="w-6 h-6" /></button>
             </div>
           </div>
         )}
 
-        {/* STEP 5: RESULTADO E EXPORTAÇÃO PDF (Otimizado) */}
+        {/* PASSO 5: RESULTADO E VISUALIZAÇÃO */}
         {step === 5 && (
-          <div className="animate-in fade-in zoom-in-95 duration-1000">
+          <div className="animate-in fade-in duration-1000">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6 no-print">
               <div>
-                <h2 className="text-7xl font-black text-slate-900 tracking-tighter leading-none mb-6 uppercase">Diagnóstico<br />Pronto</h2>
-                <p className="text-slate-500 text-xl max-w-xl leading-relaxed">
-                  Soluções estratégicas mapeadas para a unidade de <strong className="text-black">{currentCity?.label}</strong> no segmento <strong className="text-black">{currentSegment?.label}</strong>.
-                </p>
+                <h2 className="text-7xl font-black text-slate-900 tracking-tighter leading-none mb-6 uppercase">Diagnóstico<br />Concluído</h2>
+                <p className="text-slate-500 text-xl max-w-xl leading-relaxed font-medium">Resultados prontos para a unidade de <strong className="text-black">{currentCityLabel}</strong>.</p>
               </div>
-              <div className="flex gap-4">
-                <button onClick={() => setStep(0)} className="px-8 py-5 rounded-2xl border-2 border-slate-100 font-black text-xs uppercase tracking-widest hover:bg-slate-50 transition-all">Reiniciar</button>
+              <div className="flex flex-wrap gap-4">
+                <button onClick={() => { setStep(0); setShowReportPreview(false); }} className="px-8 py-5 rounded-2xl border-2 border-slate-100 font-black text-xs uppercase tracking-widest hover:bg-slate-50 transition-all">Reiniciar</button>
                 
                 <button 
-                  onClick={exportPDF} 
-                  disabled={isExporting}
-                  className="px-10 py-5 rounded-2xl bg-black text-white font-black hover:shadow-2xl transition-all flex items-center gap-3 disabled:opacity-50 min-w-[240px] justify-center shadow-xl"
+                  onClick={() => setShowReportPreview(!showReportPreview)}
+                  className={`px-8 py-5 rounded-2xl border-2 font-black text-xs uppercase tracking-widest transition-all flex items-center gap-2 ${showReportPreview ? 'bg-black text-white border-black' : 'border-slate-100'}`}
                 >
-                  {isExporting ? (
-                    <>
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                      <span className="tracking-widest uppercase text-sm">Gerando...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Printer className="w-5 h-5" />
-                      <span className="tracking-widest uppercase text-sm">Exportar PDF</span>
-                    </>
-                  )}
+                  {showReportPreview ? <LayoutDashboard className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  {showReportPreview ? 'Ver Dashboard' : 'Ver Relatório'}
+                </button>
+
+                <button onClick={exportPDF} disabled={isExporting} className="px-10 py-5 rounded-2xl bg-black text-white font-black hover:shadow-2xl transition-all flex items-center gap-3 disabled:opacity-50 min-w-[240px] justify-center shadow-xl uppercase tracking-widest text-sm">
+                  {isExporting ? <><Loader2 className="w-5 h-5 animate-spin" /><span className="tracking-widest uppercase text-sm font-black">Gerando PDF...</span></> : <><Printer className="w-5 h-5" /><span className="tracking-widest uppercase text-sm font-black">Imprimir PDF</span></>}
                 </button>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20 no-print">
-              {/* SENAI STI - GARANTIA DE RECOMENDAÇÃO */}
-              <div className="bg-slate-50 p-10 rounded-[48px] border border-slate-100 flex flex-col min-h-[440px]">
-                <div className="flex items-center gap-3 mb-8">
-                  <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-lg">
-                    <Target className="w-7 h-7" />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold uppercase tracking-tight leading-tight">Senai STI / GTI</h3>
-                    <p className="text-[10px] font-black uppercase text-blue-600 tracking-widest">Serviços Tecnológicos</p>
-                  </div>
-                </div>
-                <div className="space-y-4 flex-1">
-                  {recommendations.senai.map(item => (
-                    <div key={`view-senai-${item.id}`} className="p-6 bg-white rounded-3xl shadow-sm border border-transparent hover:border-blue-200 transition-all group">
-                      <h4 className="text-lg font-bold mb-2 uppercase text-slate-800">{item.title}</h4>
-                      <p className="text-sm text-slate-500 italic mb-4 leading-relaxed font-medium">"{item.note}"</p>
-                      <span className="text-[10px] font-black bg-slate-100 px-2 py-1 rounded uppercase tracking-tighter text-slate-500">{item.type}</span>
+            {/* DASHBOARD VIEW */}
+            {!showReportPreview && (
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20 no-print">
+                    <div className="bg-slate-50 p-10 rounded-[48px] border border-slate-100 flex flex-col min-h-[440px]">
+                        <div className="flex items-center gap-3 mb-8">
+                            <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-lg"><Target className="w-7 h-7" /></div>
+                            <div>
+                                <h3 className="text-2xl font-bold uppercase tracking-tight leading-tight">Senai STI / GTI</h3>
+                                <p className="text-[10px] font-black uppercase text-blue-600 tracking-widest">Serviços Tecnológicos</p>
+                            </div>
+                        </div>
+                        <div className="space-y-4 flex-1">
+                            {recommendations.senai.map(item => (
+                                <div key={`view-senai-${item.id}`} className="p-6 bg-white rounded-3xl shadow-sm border border-transparent hover:border-blue-200 transition-all group">
+                                    <h4 className="text-lg font-bold mb-2 uppercase text-slate-800">{item.title}</h4>
+                                    <p className="text-sm text-slate-500 italic mb-4 leading-relaxed font-medium">"{item.note}"</p>
+                                    <span className="text-[10px] font-black bg-slate-100 px-2 py-1 rounded uppercase tracking-tighter text-slate-500">{item.type}</span>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                  ))}
-                </div>
-              </div>
 
-              {/* SEBRAETEC - COM LÓGICA DE ELEGIBILIDADE */}
-              <div className="bg-slate-50 p-10 rounded-[48px] border border-slate-100 flex flex-col min-h-[440px]">
-                <div className="flex items-center gap-3 mb-8">
-                  <div className="w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-lg">
-                    <Sparkles className="w-7 h-7" />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold uppercase tracking-tight leading-tight">Fichas Sebraetec</h3>
-                    <p className="text-[10px] font-black uppercase text-indigo-600 tracking-widest">Inovação Rápida</p>
-                  </div>
-                </div>
-                <div className="space-y-4 flex-1">
-                  {isSebraeEligible ? (
-                    recommendations.sebrae.map(item => (
-                      <div key={`view-sebrae-${item.id}`} className="p-6 bg-white rounded-3xl shadow-sm border border-transparent hover:border-indigo-200 transition-all">
-                        <h4 className="text-lg font-bold mb-2 uppercase text-slate-800">{item.title}</h4>
-                        <p className="text-sm text-slate-500 italic mb-4 leading-relaxed font-medium">"{item.note}"</p>
-                        <span className="text-[10px] font-black bg-slate-100 px-2 py-1 rounded uppercase tracking-tighter text-slate-500">{item.area}</span>
-                      </div>
-                    ))
-                  ) : (
-                    <div className="h-full flex flex-col items-center justify-center text-center p-10 border-2 border-dashed border-slate-200 rounded-[40px] bg-white/50">
-                        <Ban className="w-14 h-14 text-slate-200 mb-6" />
-                        <h4 className="text-xl font-bold text-slate-500 mb-2 uppercase tracking-tight leading-tight">Não Aplicável ao Porte</h4>
-                        <p className="text-sm text-slate-400 leading-relaxed max-w-[280px]">
-                            Fichas Sebraetec destinam-se exclusivamente a <strong className="text-slate-500">Micro e Pequenas Empresas</strong>.
-                            Sua unidade: <strong className="text-slate-900">{currentPorteLabel}</strong>.
-                        </p>
+                    <div className="bg-slate-50 p-10 rounded-[48px] border border-slate-100 flex flex-col min-h-[440px]">
+                        <div className="flex items-center gap-3 mb-8">
+                            <div className="w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-lg"><Sparkles className="w-7 h-7" /></div>
+                            <div>
+                                <h3 className="text-2xl font-bold uppercase tracking-tight leading-tight">Fichas Sebraetec</h3>
+                                <p className="text-[10px] font-black uppercase text-indigo-600 tracking-widest">Inovação Rápida</p>
+                            </div>
+                        </div>
+                        <div className="space-y-4 flex-1">
+                            {isSebraeEligible ? (
+                                recommendations.sebrae.map(item => (
+                                    <div key={`view-sebrae-${item.id}`} className="p-6 bg-white rounded-3xl shadow-sm border border-transparent hover:border-indigo-200 transition-all">
+                                        <h4 className="text-lg font-bold mb-2 uppercase text-slate-800">{item.title}</h4>
+                                        <p className="text-sm text-slate-500 italic mb-4 leading-relaxed font-medium">"{item.note}"</p>
+                                        <span className="text-[10px] font-black bg-slate-100 px-2 py-1 rounded uppercase tracking-tighter text-slate-500">{item.area}</span>
+                                    </div>
+                                ))
+                            ) : (
+                                <div className="h-full flex flex-col items-center justify-center text-center p-10 border-2 border-dashed border-slate-200 rounded-[40px] bg-white/50">
+                                    <Ban className="w-14 h-14 text-slate-200 mb-6" />
+                                    <h4 className="text-xl font-bold text-slate-500 mb-2 uppercase tracking-tight leading-tight">Não Aplicável ao Porte</h4>
+                                    <p className="text-sm text-slate-400 leading-relaxed max-w-[280px]">As Fichas Sebraetec destinam-se exclusivamente a <strong className="text-slate-500">Micro e Pequenas Empresas</strong>. Sua unidade: <strong className="text-slate-900">{currentPorteLabel}</strong>.</p>
+                                </div>
+                            )}
+                        </div>
                     </div>
-                  )}
                 </div>
-              </div>
-            </div>
+            )}
 
-            {/* RELATÓRIO PDF (ESTÁTICO PARA IMPRESSÃO) */}
-            <div className="print-only hidden p-16 text-slate-900 bg-white">
-                <div className="flex justify-between items-start mb-12 border-b-2 border-black pb-8">
+            {/* RELATÓRIO PDF / PREVIEW VIEW (ESTÁTICA E ROBUSTA) */}
+            <div className={`${showReportPreview ? 'block' : 'hidden'} print:block bg-white shadow-2xl p-16 mx-auto mb-20 max-w-[210mm] border border-slate-100 text-slate-900`}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', borderBottom: '4px solid #000', paddingBottom: '20pt', marginBottom: '30pt' }}>
                     <div>
-                        <h1 className="text-4xl font-black uppercase mb-1 tracking-tighter">Relatório de Recomendação</h1>
-                        <p className="text-slate-500 uppercase tracking-widest font-black text-[10px]">SENAI GTI • SEBRAE GOIÁS • INTELIGÊNCIA INDUSTRIAL</p>
+                        <h1 style={{ fontSize: '32pt', fontWeight: 900, margin: 0, textTransform: 'uppercase', letterSpacing: '-1pt' }}>Relatório Estratégico</h1>
+                        <p style={{ fontSize: '10pt', fontWeight: 900, margin: '5pt 0 0 0', textTransform: 'uppercase', color: '#666', letterSpacing: '2pt' }}>SENAI GTI • SEBRAE GOIÁS • INTELIGÊNCIA INDUSTRIAL</p>
                     </div>
-                    <div className="text-right flex flex-col items-end">
-                        <img src={LOGO_URL} alt="STI" className="h-14 w-auto mb-4 object-contain" />
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Emissão: {new Date().toLocaleDateString('pt-BR')}</p>
+                    <div style={{ textAlign: 'right' }}>
+                        <img src={LOGO_URL} alt="Logo" style={{ height: '45pt', marginBottom: '10pt' }} />
+                        <p style={{ fontSize: '9pt', fontWeight: 900, color: '#AAA' }}>EMISSÃO: {new Date().toLocaleDateString('pt-BR')}</p>
                     </div>
                 </div>
                 
-                <div className="grid grid-cols-2 gap-10 mb-14">
-                    <div className="bg-slate-50 p-10 rounded-3xl">
-                        <h2 className="text-[10px] font-black uppercase mb-6 text-slate-400 tracking-[0.4em] border-b border-slate-200 pb-2">Diagnóstico da Unidade</h2>
-                        <div className="space-y-4 font-medium">
-                            <p className="text-sm"><strong>Polo Regional:</strong> {currentCity?.label || 'Goiás'}</p>
-                            <p className="text-sm"><strong>Segmento Industrial:</strong> {currentSegment?.label || 'Indústria'}</p>
-                            <p className="text-sm"><strong>Gargalo Identificado:</strong> {currentProblemLabel}</p>
-                            <p className="text-sm"><strong>Gravidade Relatada:</strong> {data.intensidade}%</p>
-                            <p className="text-sm"><strong>Classificação de Porte:</strong> {currentPorteLabel}</p>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20pt', marginBottom: '40pt' }}>
+                    <div style={{ backgroundColor: '#f8fafc', padding: '20pt', borderRadius: '15pt', border: '0.5pt solid #e2e8f0' }}>
+                        <h2 style={{ fontSize: '9pt', fontWeight: 900, textTransform: 'uppercase', color: '#94a3b8', borderBottom: '1pt solid #cbd5e1', paddingBottom: '5pt', marginBottom: '15pt', letterSpacing: '3pt' }}>Diagnóstico</h2>
+                        <div style={{ fontSize: '11pt', lineHeight: '1.8' }}>
+                            <p><strong>Polo Regional:</strong> {currentCityLabel}</p>
+                            <p><strong>Segmento:</strong> {currentSegmentLabel}</p>
+                            <p><strong>Problema:</strong> {currentProblemLabel}</p>
+                            <p><strong>Gravidade:</strong> {data.intensidade}%</p>
+                            <p><strong>Porte da Unidade:</strong> {currentPorteLabel}</p>
                         </div>
                     </div>
-                    <div className="p-10 border-2 border-slate-100 rounded-3xl flex flex-col justify-center">
-                        <h2 className="text-[10px] font-black uppercase mb-6 text-slate-400 tracking-[0.4em] border-b border-slate-200 pb-2">Contexto Estratégico</h2>
-                        <p className="text-sm leading-relaxed text-slate-700 italic">
-                            "A unidade produtiva em <strong className="text-black">{currentCity?.label}</strong> atua em um eixo fundamental para a Neoindustrialização do Cerrado. A resolução técnica do problema de <strong>{currentProblemLabel}</strong> é vital para a competitividade frente aos novos investimentos de R$ 39 bilhões previstos para o Estado."
+                    <div style={{ padding: '20pt', borderRadius: '15pt', border: '2pt solid #f1f5f9', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                        <h2 style={{ fontSize: '9pt', textTransform: 'uppercase', letterSpacing: '3pt', color: '#94a3b8', borderBottom: '1pt solid #cbd5e1', paddingBottom: '5pt', marginBottom: '15pt' }}>Contexto Estratégico</h2>
+                        <p style={{ fontSize: '11pt', fontStyle: 'italic', color: '#475569', lineHeight: '1.6' }}>
+                            "A unidade produtiva em <strong>{currentCityLabel}</strong> atua em um polo fundamental para a Neoindustrialização de Goiás. A resolução técnica de <strong>{currentProblemLabel}</strong> é vital para a competitividade frente aos investimentos de R$ 39 bi."
                         </p>
                     </div>
                 </div>
 
-                <h2 className="text-2xl font-black mb-8 uppercase tracking-tighter border-b border-slate-100 pb-2">Plano de Intervenções</h2>
-                <div className="space-y-10">
-                    {/* SENAI SECTION */}
+                <h2 style={{ fontSize: '20pt', fontWeight: 900, textTransform: 'uppercase', marginBottom: '25pt', borderBottom: '2pt solid #f1f5f9', paddingBottom: '8pt' }}>Plano de Intervenções</h2>
+                
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '20pt' }}>
                     {recommendations.senai.map((item, idx) => (
-                        <div key={`pdf-senai-${idx}`} className="border-l-4 border-blue-600 pl-8 py-1 page-break-inside-avoid">
-                            <p className="text-[10px] font-black text-blue-600 uppercase mb-2 tracking-widest">STI SENAI • {item.type}</p>
-                            <h3 className="font-bold text-2xl mb-3 text-slate-900">{item.title}</h3>
-                            <p className="text-slate-700 text-sm leading-relaxed max-w-3xl font-medium">{item.note}</p>
+                        <div key={`pdf-senai-${idx}`} style={{ borderLeft: '4pt solid #2563eb', paddingLeft: '20pt', marginBottom: '10pt', breakInside: 'avoid' }}>
+                            <p style={{ fontSize: '8pt', fontWeight: 900, color: '#2563eb', textTransform: 'uppercase', letterSpacing: '2pt', marginBottom: '4pt' }}>STI SENAI • {item.type}</p>
+                            <h3 style={{ fontSize: '17pt', fontWeight: 800, margin: '0 0 6pt 0' }}>{item.title}</h3>
+                            <p style={{ fontSize: '11pt', color: '#334155' }}>{item.note}</p>
                         </div>
                     ))}
                     
-                    {/* SEBRAE SECTION */}
                     {isSebraeEligible ? (
                         recommendations.sebrae.map((item, idx) => (
-                            <div key={`pdf-sebrae-${idx}`} className="border-l-4 border-indigo-600 pl-8 py-1 page-break-inside-avoid">
-                                <p className="text-[10px] font-black text-indigo-600 uppercase mb-2 tracking-widest">FICHA SEBRAETEC • {item.area}</p>
-                                <h3 className="font-bold text-2xl mb-3 text-slate-900">{item.title}</h3>
-                                <p className="text-slate-700 text-sm leading-relaxed max-w-3xl font-medium">{item.note}</p>
+                            <div key={`pdf-sebrae-${idx}`} style={{ borderLeft: '4pt solid #4f46e5', paddingLeft: '20pt', paddingBottom: '10pt', breakInside: 'avoid' }}>
+                                <p style={{ fontSize: '8pt', fontWeight: 900, color: '#4f46e5', textTransform: 'uppercase', letterSpacing: '2pt', marginBottom: '4pt' }}>FICHA SEBRAETEC • {item.area}</p>
+                                <h3 style={{ fontSize: '18pt', fontWeight: 700, margin: '0 0 8pt 0' }}>{item.title}</h3>
+                                <p style={{ fontSize: '11pt', color: '#334155' }}>{item.note}</p>
                             </div>
                         ))
                     ) : (
-                        <div className="p-8 border border-slate-200 rounded-2xl bg-slate-50/50">
-                            <p className="text-xs text-slate-400 font-black uppercase tracking-widest mb-2">Elegibilidade Sebraetec</p>
-                            <p className="text-xs text-slate-400 italic font-medium">As fichas de inovação rápida do Sebrae foram omitidas deste documento oficial pois a unidade ultrapassa o limite de porte Micro/Pequeno para este subsídio específico.</p>
+                        <div style={{ padding: '20pt', backgroundColor: '#f8fafc', borderRadius: '12pt', border: '1pt solid #e2e8f0', breakInside: 'avoid' }}>
+                            <p style={{ fontSize: '10pt', color: '#94a3b8', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '2pt' }}>Elegibilidade Sebraetec</p>
+                            <p style={{ fontSize: '10pt', color: '#94a3b8', fontStyle: 'italic' }}>Fichas técnicas omitidas devido ao porte da unidade (Elegível apenas Micro/Pequeno).</p>
                         </div>
                     )}
                 </div>
 
-                <div className="mt-32 pt-10 border-t border-slate-100 text-center">
-                    <p className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-300">Inteligência Competitiva SENAI GTI • Goiás 2024-2035</p>
+                <div style={{ marginTop: '50pt', paddingTop: '30pt', textAlign: 'center', borderTop: '1pt solid #f1f5f9' }}>
+                    <p style={{ fontSize: '8pt', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '5pt', color: '#cbd5e1' }}>Inteligência Competitiva SENAI GTI • 2024-2035</p>
                 </div>
             </div>
           </div>
@@ -514,9 +434,9 @@ export default function App() {
         @media print {
           .no-print { display: none !important; }
           .print-only { display: block !important; }
-          body { background: white !important; margin: 0; padding: 0; }
-          @page { size: A4; margin: 0; }
-          .page-break-inside-avoid { page-break-inside: avoid; }
+          body { background: white !important; margin: 0; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+          @page { size: A4; margin: 15mm; }
+          .page-break-inside-avoid { break-inside: avoid; }
         }
         input[type='range']::-webkit-slider-thumb {
           -webkit-appearance: none;
@@ -526,13 +446,13 @@ export default function App() {
           background: black;
           cursor: pointer;
           border: 6px solid white;
-          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
         }
         .animate-in {
-          animation: fade-in-up 0.6s ease-out forwards;
+          animation: fade-in-up 0.5s ease-out forwards;
         }
         @keyframes fade-in-up {
-          from { opacity: 0; transform: translateY(10px); }
+          from { opacity: 0; transform: translateY(15px); }
           to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
